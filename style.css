@@ -1,6 +1,14 @@
+body {
+	font-family: 'Nanum Gothic', sans-serif;
+}
+
 ul {
 	list-style: none;
 	padding-left: 10px;
+}
+
+ul>li {
+	margin: 5px 0;
 }
 
 .pixel-input {
@@ -8,4 +16,12 @@ ul {
 	border: none;
 	border-bottom: dashed 2px purple;
 	text-align: center;
+}
+
+.my-select {
+	padding: 5px;
+
+}
+
+.my-select>option {
 }

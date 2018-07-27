@@ -6,12 +6,19 @@
     <title>쉽고 간단한 박스형 자막 제작</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script type="text/javascript" src="./plug-in/jquery-3.3.1.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Do+Hyeon|East+Sea+Dokdo|Jua|Kirang+Haerang|Nanum+Brush+Script|Nanum+Gothic|Nanum+Myeongjo|Nanum+Pen+Script|Sunflower:300|Yeon+Sung" rel="stylesheet">
 </head>
 <body>
 	<h1>쉽고 간단한 박스형 자막 제작</h1>
 	<div>
 		<ul>
 			<li><span>글씨 크기: </span><input class="pixel-input input-auto-width" value="20"><span>px</span></li>
+			<li><span>폰트: </span>
+				<select class="my-select" id="font-select">
+					<option value="나눔고딕">나눔고딕</option>
+					<option value="배민 도현체">배민 도현체</option>
+				</select>
+			</li>
 		</ul>
 	</div>
 	<script type="text/javascript" src="script.js"></script>
