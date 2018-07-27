@@ -1,3 +1,11 @@
 ul {
 	list-style: none;
+	padding-left: 10px;
+}
+
+.pixel-input {
+	width: 20px;
+	border: none;
+	border-bottom: dashed 2px purple;
+	text-align: center;
 }
