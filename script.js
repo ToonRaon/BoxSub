@@ -9,7 +9,15 @@ $(".input-auto-width").on('keydown', function(e) {
 	$("#virtual-input").remove();
 });
 
-// 폰트 옵션에 해당 폰트 적용하기
-$("#font-select").each(function() {
-	$(this).css("font-family", $(this).val() + " sans-serif") ;
+// 폰트 옵션 Select에 해당 폰트 적용하기
+var fontSelect = $("#font-select");
+var fontSelectChildren = $(fontSelect).children();
+
+$(fontSelect).css("font-family", $(fontSelect).val() + ", sans-serif");
+for(var i = 0; i < fontSelectChildren.length; i++) {
+	$(fontSelectChildren[i]).css("font-family", $(fontSelectChildren[i]).val() + ", sans-serif") ;
+}
+
+$(fontSelect).change(function() {
+	$(fontSelect).css("font-family", $(this).val() + ", sans-serif");
 });
