@@ -27,3 +27,13 @@ ul>li {
 .my-select>option {
 	font-size: 16px;
 }
+
+#text-color-select {
+	width: 100px;
+	background-color: none;
+}
+
+#box-color-select {
+	width: 100px;
+	background-color: none;
+}
