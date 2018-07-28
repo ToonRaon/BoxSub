@@ -1,5 +1,17 @@
+:root {
+	--main-font-family: 'Nanum Gothic', sans-serif;
+}
+
 body, input, textarea, button, select {
 	font-family: 'Nanum Gothic', sans-serif;
+}
+
+.header {
+	text-align: center;
+}
+
+.content {
+	text-align: center;
 }
 
 ul {
@@ -8,7 +20,7 @@ ul {
 }
 
 ul>li {
-	margin: 5px 0;
+	margin: 10px 0;
 }
 
 .pixel-input {
@@ -21,21 +33,15 @@ ul>li {
 .my-select {
 	padding: 5px;
 	font-size: 16px;
-
+	border: solid 1px gray;
+	border-radius: 30px;
+	font-family: var(--main-font-family);
 }
 
 .my-select>option {
 	font-size: 16px;
 }
 
-#text-color-select {
+#text-color-select, #box-color-select {
 	width: 100px;
-	background-color: none;
-	color: #687A80;
-}
-
-#box-color-select {
-	width: 100px;
-	background-color: none;
-	color: #687A80;
 }

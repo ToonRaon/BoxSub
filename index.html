@@ -6,11 +6,12 @@
     <title>쉽고 간단한 박스형 자막 제작</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script type="text/javascript" src="./plug-in/jquery-3.3.1.js"></script>
+	<script type="text/javascript" src="./plug-in/rgb2hsl.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Do+Hyeon|East+Sea+Dokdo|Jua|Kirang+Haerang|Nanum+Brush+Script|Nanum+Gothic|Nanum+Myeongjo|Nanum+Pen+Script|Sunflower:300|Yeon+Sung" rel="stylesheet">
 </head>
 <body>
-	<h1>쉽고 간단한 박스형 자막 제작</h1>
-	<div>
+	<h1 class="header">쉽고 간단한 박스형 자막 제작</h1>
+	<div class="content">
 		<ul>
 			<li><span>글씨 크기: </span><input class="pixel-input input-auto-width" value="20"><span>px</span></li>
 			<li><span>폰트: </span>
@@ -25,6 +26,20 @@
 					<option value="Kirang Haerang">기랑 해랑</option>
 					<option value="East Sea Dokdo">동해독도</option>
 					<option value="Sunflower">해바라기</option>
+				</select>
+			</li>
+			<li><span>폰트 스타일: </span>
+				<select class="my-select" id="font-style-select">
+					<option value="normal">일반</option>
+					<option value="italic">기울임</option>
+				</select>
+			</li>
+			<li><span>폰트 굵기: </span>
+				<select class="my-select" id="font-weight-select">
+					<option value="normal">일반</option>
+					<option value="bold">굵게</option>
+					<option value="bolder">더 굵게</option>
+					<option value="lighter">얇게</option>
 				</select>
 			</li>
 			<li><span>글자 색: </span>
@@ -57,7 +72,28 @@
 				<input class="pixel-input input-auto-width" id="padding-left-input" value="20">
 				<span>px</span>
 			</li>
+			<li>
+				<span>상자 가로 길이: </span>
+				<input class="pixel-input input-auto-width" id="box-width-input" value="auto">
+				<span>px</span>
+			</li>
+			<li>
+				<span>상자 세로 길이: </span>
+				<input class="pixel-input input-auto-width" id="box-height-input" value="auto">
+				<span>px</span>
+			</li>
+			<li>
+				<span>캔버스 가로 길이: </span>
+				<input class="pixel-input input-auto-width" id="canvas-width-input" value="auto">
+				<span>px</span>
+			</li>
+			<li>
+				<span>캔버스 세로 길이: </span>
+				<input class="pixel-input input-auto-width" id="canvas-height-input" value="auto">
+				<span>px</span>
+			</li>
 		</ul>
+		
 	</div>
 	<script type="text/javascript" src="script.js"></script>
 </body>
