@@ -1,5 +1,18 @@
 :root {
-	--main-font-family: 'Nanum Gothic', sans-serif;
+	--sub-font-size: 20px;
+	--sub-font-family: 'Nanum Gothic', sans-serif;
+	--sub-text-color: #FFFFFF;
+	--sub-background-color: #000000;
+	--sub-font-style: normal;
+	--sub-font-weight: normal;
+	--sub-padding-top: 5px;
+	--sub-padding-right: 20px;
+	--sub-padding-bottom: 5px;
+	--sub-padding-left: 20px;
+	--sub-box-width: auto;
+	--sub-box-height: auto;
+	--sub-canvs-width: auto;
+	--sub-canvs-height: auto;
 }
 
 body, input, textarea, button, select {
@@ -35,13 +48,68 @@ ul>li {
 	font-size: 16px;
 	border: solid 1px gray;
 	border-radius: 30px;
-	font-family: var(--main-font-family);
+	font-family: var(--sub-font-family);
 }
 
 .my-select>option {
 	font-size: 16px;
 }
 
+#font-style-select {
+	font-style: var(--sub-font-style);
+}
+
+#font-weight-select {
+	font-weight: var(--sub-font-weight);
+}
+
 #text-color-select, #box-color-select {
 	width: 100px;
+}
+
+#text-color-select {
+	background-color: var(--sub-text-color);
+}
+
+#box-color-select {
+	background-color: var(--sub-background-color);
+}
+
+.sub-box {
+	display: block;
+	font-size: var(--sub-font-size);
+	font-family: var(--sub-font-family);
+	font-style: var(--sub-font-style);
+	font-weight: var(--sub-font-weight);
+	color: var(--sub-text-color);
+	background-color: var(--sub-background-color);
+	text-align: center;
+	padding-top: var(--sub-padding-top);
+	padding-right: var(--sub-padding-right);
+	padding-bottom: var(--sub-padding-bottom);
+	padding-left: var(--sub-padding-left);
+	width: var(--sub-box-width);
+	height: var(--sub-box-height);
+	border: none;
+
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 10px;
+}
+
+#virtual-input {
+	display: inline-block;
+	font-size: var(--sub-font-size);
+	font-family: var(--sub-font-family);
+	font-style: var(--sub-font-style);
+	font-weight: var(--sub-font-weight);
+	color: var(--sub-text-color);
+	background-color: var(--sub-background-color);
+	text-align: center;
+	padding-top: var(--sub-padding-top);
+	padding-right: var(--sub-padding-right);
+	padding-bottom: var(--sub-padding-bottom);
+	padding-left: var(--sub-padding-left);
+	width: var(--sub-box-width);
+	height: var(--sub-box-height);
 }

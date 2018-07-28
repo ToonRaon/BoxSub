@@ -6,6 +6,7 @@
     <title>쉽고 간단한 박스형 자막 제작</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script type="text/javascript" src="./plug-in/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="./plug-in/html2canvas-0.4.1.js"></script>
 	<script type="text/javascript" src="./plug-in/rgb2hsl.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Do+Hyeon|East+Sea+Dokdo|Jua|Kirang+Haerang|Nanum+Brush+Script|Nanum+Gothic|Nanum+Myeongjo|Nanum+Pen+Script|Sunflower:300|Yeon+Sung" rel="stylesheet">
 </head>
@@ -13,7 +14,7 @@
 	<h1 class="header">쉽고 간단한 박스형 자막 제작</h1>
 	<div class="content">
 		<ul>
-			<li><span>글씨 크기: </span><input class="pixel-input input-auto-width" value="20"><span>px</span></li>
+			<li><span>글씨 크기: </span><input class="pixel-input input-auto-width" id="font-size-input" value="20"><span>px</span></li>
 			<li><span>폰트: </span>
 				<select class="my-select" id="font-select">
 					<option value="Nanum Gothic">나눔 고딕</option>
@@ -66,9 +67,9 @@
 			</li>
 			<li>
 				<span>안쪽 여백: </span>
-				<input class="pixel-input input-auto-width" id="padding-top-input" value="20">
+				<input class="pixel-input input-auto-width" id="padding-top-input" value="5">
 				<input class="pixel-input input-auto-width" id="padding-right-input" value="20">
-				<input class="pixel-input input-auto-width" id="padding-bottom-input" value="20">
+				<input class="pixel-input input-auto-width" id="padding-bottom-input" value="5">
 				<input class="pixel-input input-auto-width" id="padding-left-input" value="20">
 				<span>px</span>
 			</li>
@@ -93,7 +94,8 @@
 				<span>px</span>
 			</li>
 		</ul>
-		
+		<input type="text" class="sub-box" value="자막을 입력하세요.">
+		<button id="save">저장</button>
 	</div>
 	<script type="text/javascript" src="script.js"></script>
 </body>

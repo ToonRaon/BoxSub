@@ -1,7 +1,15 @@
+function setCssVar(key, value) {
+	document.documentElement.style.setProperty(key, value);
+}
+
+function getCssVar(key) {
+	document.documentElement.style.getPropertyValue(key);
+}
+
 // .input-auto-width의 가로 길이를 글자에 맞게 자동 조정
 $(".input-auto-width").each(function() {
 	setInputAutoWidth(this);
-	console.log(this);
+
 	$(this).keydown(function(e) {
 		setInputAutoWidth(this);
 	});
@@ -9,11 +17,21 @@ $(".input-auto-width").each(function() {
 
 function setInputAutoWidth(input) {
 	var value = $(input).val();
-	$("body").append("<div id='virtual-input' style='display: inline-block;'>" + value + "</div>");
+	$("body").append("<div id='virtual-input'>" + value + "</div>");
 	
-	var inputWidth = $("#virtual-input").width() + 10; // 여백 10px
+	var inputWidth = $("#virtual-input").width() + 20; // 여백 10px
 
 	$(input).css("width", inputWidth);
+	$("#virtual-input").remove();
+}
+
+function setInputAutoHeight(input) {
+	var value = $(input).val();
+	$("body").append("<div id='virtual-input'>" + value + "</div>");
+	
+	var inputHeight = $("#virtual-input").height() + 20; // 여백 10px
+
+	$(input).css("height", inputHeight);
 	$("#virtual-input").remove();
 }
 
@@ -23,15 +41,13 @@ function setInputAutoWidth(input) {
 var fontSelect = $("#font-select");
 var fontSelectChildren = $(fontSelect).children();
 
-$(fontSelect).css("font-family", $(fontSelect).val() + ", sans-serif");
-$(":root")[0].style.setProperty("--main-font-family", $(fontSelect).val() + ", sans-serif");
+setCssVar("--sub-font-family", $(fontSelect).val() + ", sans-serif");
 for(var i = 0; i < fontSelectChildren.length; i++) {
 	$(fontSelectChildren[i]).css("font-family", $(fontSelectChildren[i]).val() + ", sans-serif");
 }
 
 $(fontSelect).change(function() {
-	$(fontSelect).css("font-family", $(this).val() + ", sans-serif");
-	$(":root")[0].style.setProperty("--main-font-family", $(this).val() + ", sans-serif");
+	setCssVar("--sub-font-family", $(this).val() + ", sans-serif");
 });
 
 
@@ -40,13 +56,13 @@ $(fontSelect).change(function() {
 var fontStyleSelect = $("#font-style-select");
 var fontStyleSelectChildren = $(fontStyleSelect).children();
 
-$(fontStyleSelect).css("font-style", $(fontStyleSelect).val());
+setCssVar("--sub-font-style", $(fontStyleSelect).val());
 for(var i = 0; i < fontStyleSelectChildren.length; i++) {
 	$(fontStyleSelectChildren[i]).css("font-style", $(fontStyleSelectChildren[i]).val());
 }
 
 $(fontStyleSelect).change(function() {
-	$(fontStyleSelect).css("font-style", $(this).val());
+	setCssVar("--sub-font-style", $(this).val());
 });
 
 
@@ -55,13 +71,13 @@ $(fontStyleSelect).change(function() {
 var fontWeightSelect = $("#font-weight-select");
 var fontWeightSelectChildren = $(fontWeightSelect).children();
 
-$(fontWeightSelect).css("font-weight", $(fontWeightSelect).val());
+setCssVar("--sub-font-weight", $(fontWeightSelect).val());
 for(var i = 0; i < fontWeightSelectChildren.length; i++) {
 	$(fontWeightSelectChildren[i]).css("font-weight", $(fontWeightSelectChildren[i]).val());
 }
 
 $(fontWeightSelect).change(function() {
-	$(fontWeightSelect).css("font-weight", $(this).val());
+	setCssVar("--sub-font-weight", $(this).val());
 });
 
 
@@ -71,14 +87,13 @@ $(fontWeightSelect).change(function() {
 var colorSelect = $("#text-color-select");
 var colorSelectChildren = $(colorSelect).children();
 
-$(colorSelect).css("background-color", $(colorSelect).val());
-
+setCssVar("--sub-text-color", $(colorSelect).val());
 for(var i = 0; i < colorSelectChildren.length; i++) {
 	$(colorSelectChildren[i]).css("background-color", $(colorSelectChildren[i]).val());
 }
 
 $(colorSelect).change(function() {
-	$(colorSelect).css("background-color", $(this).val());
+	setCssVar("--sub-text-color", $(this).val());
 });
 
 
@@ -87,14 +102,13 @@ $(colorSelect).change(function() {
 var boxSelect = $("#box-color-select");
 var boxSelectChildren = $(boxSelect).children();
 
-$(boxSelect).css("background-color", $(boxSelect).val());
-
+setCssVar("--sub-background-color", $(boxSelect).val());
 for(var i = 0; i < boxSelectChildren.length; i++) {
 	$(boxSelectChildren[i]).css("background-color", $(boxSelectChildren[i]).val()) ;
 }
 
 $(boxSelect).change(function() {
-	$(boxSelect).css("background-color", $(this).val());
+	setCssVar("--sub-background-color", $(this).val());
 });
 
 
@@ -116,3 +130,52 @@ function changeInputArrowColor(select) {
 		$(select).css("color", "black");
 	}
 }
+
+// css 초기값 설정
+setCssVar("--sub-font-size", $("#font-size-input").val() + "px");
+setCssVar("--sub-padding-top", $("#padding-top-input").val() + "px");
+setCssVar("--sub-padding-right", $("#padding-right-input").val() + "px");
+setCssVar("--sub-padding-bottom", $("#padding-bottom-input").val() + "px");
+setCssVar("--sub-padding-left", $("#padding-left-input").val() + "px");
+setCssVar("--sub-box-width", $("#box-width-input").val() + "px");
+setCssVar("--sub-box-height", $("#box-height-input").val() + "px");
+setCssVar("--sub-canvas-width", $("#canvas-width-input").val() + "px");
+setCssVar("--sub-canvas-height", $("#canvas-height-input").val() + "px");
+// css 변경값 설정
+$("#font-size-input").change(function(e) { setCssVar("--sub-font-size", $(this).val() + "px"); });
+$("#padding-top-input").change(function(e) { setCssVar("--sub-padding-top", $(this).val() + "px");  });
+$("#padding-right-input").change(function(e) { setCssVar("--sub-padding-right", $(this).val() + "px"); });
+$("#padding-bottom-input").change(function(e) { setCssVar("--sub-padding-bottom", $(this).val() + "px"); });
+$("#padding-left-input").change(function(e) { setCssVar("--sub-padding-left", $(this).val() + "px"); });
+$("#box-width-input").change(function(e) { setCssVar("--sub-box-width", $(this).val() + "px"); });
+$("#box-height-input").change(function(e) { setCssVar("--sub-box-height", $(this).val() + "px"); });
+$("#canvas-width-input").change(function(e) { setCssVar("--sub-canvas-width", $(this).val() + "px"); });
+$("#canvas-height-input").change(function(e) { setCssVar("--sub-canvas-height", $(this).val() + "px"); });
+
+
+
+$(".sub-box").keydown(function(e) {
+	if($("#box-width-input").val() === "auto") {
+		setInputAutoWidth(this);
+	} else {
+		$(this).css("width", getCssVar("--sub-box-width"));
+	}
+	if($("#box-height-input").val() === "auto") {
+		setInputAutoHeight(this);
+	} else {
+		$(this).css("height", getCssVar("--sub-box-height"));
+	}
+});
+
+
+$("#save").click(function() {
+	html2canvas($(".sub-box"), {
+        onrendered: function(canvas) {
+          $("body").append($("<a id='temp'></a>"));
+          $("#temp").attr("href", canvas.toDataURL());
+          $("#temp").attr("download", "sub.png");
+          $("#temp")[0].click();
+          $("#temp").remove();
+        }
+      });
+});
