@@ -134,6 +134,17 @@ function changeInputArrowColor(select) {
 	}
 }
 
+$("#canvas-length-select").change(function() {
+	var value = $(this).val();
+	var width = value.split("X")[0];
+	var height = value.split("X")[1];
+
+	setCssVar("--sub-canvas-width", width + "px");
+	setCssVar("--sub-canvas-height", height + "px");
+
+	refreshSubBox();
+});
+
 // css 초기값 설정
 setCssVar("--sub-font-size", $("#font-size-input").val() + "px");
 setCssVar("--sub-padding-top", $("#padding-top-input").val() + "px");
@@ -142,8 +153,8 @@ setCssVar("--sub-padding-bottom", $("#padding-bottom-input").val() + "px");
 setCssVar("--sub-padding-left", $("#padding-left-input").val() + "px");
 setCssVar("--sub-box-width", $("#box-width-input").val() + "px");
 setCssVar("--sub-box-height", $("#box-height-input").val() + "px");
-setCssVar("--sub-canvas-width", $("#canvas-width-input").val() + "px");
-setCssVar("--sub-canvas-height", $("#canvas-height-input").val() + "px");
+// setCssVar("--sub-canvas-width", $("#canvas-width-input").val() + "px");
+// setCssVar("--sub-canvas-height", $("#canvas-height-input").val() + "px");
 // css 변경값 설정
 $("#font-size-input").change(function(e) { setCssVar("--sub-font-size", $(this).val() + "px"); });
 $("#padding-top-input").change(function(e) { setCssVar("--sub-padding-top", $(this).val() + "px");  });
@@ -152,15 +163,19 @@ $("#padding-bottom-input").change(function(e) { setCssVar("--sub-padding-bottom"
 $("#padding-left-input").change(function(e) { setCssVar("--sub-padding-left", $(this).val() + "px"); });
 $("#box-width-input").change(function(e) { setCssVar("--sub-box-width", $(this).val() + "px"); });
 $("#box-height-input").change(function(e) { setCssVar("--sub-box-height", $(this).val() + "px"); });
-$("#canvas-width-input").change(function(e) { setCssVar("--sub-canvas-width", $(this).val() + "px"); });
-$("#canvas-height-input").change(function(e) {
-	setCssVar("--sub-canvas-height", $(this).val() + "px");
-	refreshSubBox();
-});
+// $("#canvas-width-input").change(function(e) { setCssVar("--sub-canvas-width", $(this).val() + "px"); });
+// $("#canvas-height-input").change(function(e) {
+// 	setCssVar("--sub-canvas-height", $(this).val() + "px");
+// 	refreshSubBox();
+// });
 
 function refreshSubBox() {
-	if($("#canvas-height-input").val() === "auto") return;
-	
+	if(getCssVar("--sub-canvas-height") === "autopx") {
+		alert('a');
+		$("#canvas").css("position", "initial");
+		return;
+	}
+
 	// 자막을 아래에 놓기
 	$(".canvas-container").css("height", $("#canvas-height-input").val() + "px");
 	$("#canvas").css("position", "absolute")
