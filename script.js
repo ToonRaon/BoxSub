@@ -1,9 +1,23 @@
+// 글자색, 배경색 select option에 색깔 추가
+function addColorToSelect(select) {
+	var colors = ["133046", "15959F", "F1E4B3", "EC9770", "C7402D", "8C2131", "053138", "0C2733", "1C1A21", "FFFCF0", "DB067A", "020241", "01C09C", "F1F1F1", "F84904", "00261C", "044C29", "167F39", "45BF55", "97ED8A", "323642", "091324", "F4F5F2", "D7D8DB", "8C8B8F", "F6DDDF", "EEC9C8", "DF9C9D", "687A80", "B9C6CA", "284854", "32CCB0", "FFEDA7", "FF5C58", "512C54", "BF112E", "02173E", "13A399", "F5941C", "F16541", "450003", "5C0002", "94090D", "D40D12", "FF1D23", "3B0030", "F53A33", "FF9130", "FEDD55", "128C87"];
+
+	for(var i in colors) {
+	$(select).append($("<option value='#" + colors[i] + "'></option>"));
+	}
+}
+
+addColorToSelect($("#text-color-select"));
+addColorToSelect($("#box-color-select"));
+
+
+
 function setCssVar(key, value) {
-	document.documentElement.style.setProperty(key, value);
+	$(":root")[0].style.setProperty(key, value);
 }
 
 function getCssVar(key) {
-	document.documentElement.style.getPropertyValue(key);
+	return $(":root")[0].style.getPropertyValue(key);
 }
 
 // .input-auto-width의 가로 길이를 글자에 맞게 자동 조정
@@ -139,39 +153,43 @@ $("#canvas-length-select").change(function() {
 	var width = value.split("X")[0];
 	var height = value.split("X")[1];
 
-	setCssVar("--sub-canvas-width", width + "px");
-	setCssVar("--sub-canvas-height", height + "px");
+	setCssVar("--sub-canvas-width", setPx(width));
+	setCssVar("--sub-canvas-height", setPx(height));
 
 	refreshSubBox();
 });
 
 // css 초기값 설정
-setCssVar("--sub-font-size", $("#font-size-input").val() + "px");
-setCssVar("--sub-padding-top", $("#padding-top-input").val() + "px");
-setCssVar("--sub-padding-right", $("#padding-right-input").val() + "px");
-setCssVar("--sub-padding-bottom", $("#padding-bottom-input").val() + "px");
-setCssVar("--sub-padding-left", $("#padding-left-input").val() + "px");
-setCssVar("--sub-box-width", $("#box-width-input").val() + "px");
-setCssVar("--sub-box-height", $("#box-height-input").val() + "px");
-// setCssVar("--sub-canvas-width", $("#canvas-width-input").val() + "px");
-// setCssVar("--sub-canvas-height", $("#canvas-height-input").val() + "px");
+setCssVar("--sub-font-size", setPx($("#font-size-input").val()));
+setCssVar("--sub-padding-top", setPx($("#padding-top-input").val()));
+setCssVar("--sub-padding-right", setPx($("#padding-right-input").val()));
+setCssVar("--sub-padding-bottom", setPx($("#padding-bottom-input").val()));
+setCssVar("--sub-padding-left", setPx($("#padding-left-input").val()));
+setCssVar("--sub-box-width", setPx($("#box-width-input").val()));
+setCssVar("--sub-box-height", setPx($("#box-height-input").val()));
+// setCssVar("--sub-canvas-width", setPx($("#canvas-width-input").val()));
+// setCssVar("--sub-canvas-height", setPx($("#canvas-height-input").val()));
 // css 변경값 설정
-$("#font-size-input").change(function(e) { setCssVar("--sub-font-size", $(this).val() + "px"); });
-$("#padding-top-input").change(function(e) { setCssVar("--sub-padding-top", $(this).val() + "px");  });
-$("#padding-right-input").change(function(e) { setCssVar("--sub-padding-right", $(this).val() + "px"); });
-$("#padding-bottom-input").change(function(e) { setCssVar("--sub-padding-bottom", $(this).val() + "px"); });
-$("#padding-left-input").change(function(e) { setCssVar("--sub-padding-left", $(this).val() + "px"); });
-$("#box-width-input").change(function(e) { setCssVar("--sub-box-width", $(this).val() + "px"); });
-$("#box-height-input").change(function(e) { setCssVar("--sub-box-height", $(this).val() + "px"); });
-// $("#canvas-width-input").change(function(e) { setCssVar("--sub-canvas-width", $(this).val() + "px"); });
+$("#font-size-input").keydown(function(e) { setCssVar("--sub-font-size", setPx($(this).val())); setInputAutoWidth($(".sub-box")); setInputAutoHeight($(".sub-box")); });
+$("#padding-top-input").change(function(e) { setCssVar("--sub-padding-top", setPx($(this).val()));  });
+$("#padding-right-input").change(function(e) { setCssVar("--sub-padding-right", setPx($(this).val())); });
+$("#padding-bottom-input").change(function(e) { setCssVar("--sub-padding-bottom", setPx($(this).val())); });
+$("#padding-left-input").change(function(e) { setCssVar("--sub-padding-left", setPx($(this).val())); });
+$("#box-width-input").change(function(e) { setCssVar("--sub-box-width", setPx($(this).val())); });
+$("#box-height-input").change(function(e) { setCssVar("--sub-box-height", setPx($(this).val())); });
+// $("#canvas-width-input").change(function(e) { setCssVar("--sub-canvas-width", setPx($(this).val())); });
 // $("#canvas-height-input").change(function(e) {
-// 	setCssVar("--sub-canvas-height", $(this).val() + "px");
+// 	setCssVar("--sub-canvas-height", setPx($(this).val()));
 // 	refreshSubBox();
 // });
 
+// 그냥 px값은 px를 붙여서 반환, auto는 px 붙이지 않고 auto만 반환
+function setPx(value) {
+	return (value === "auto" ? "auto" : value + "px");
+}
+
 function refreshSubBox() {
-	if(getCssVar("--sub-canvas-height") === "autopx") {
-		alert('a');
+	if(getCssVar("--sub-canvas-height") === "auto") {
 		$("#canvas").css("position", "initial");
 		return;
 	}
