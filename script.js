@@ -35,6 +35,9 @@ function setInputAutoHeight(input) {
 	$("#virtual-input").remove();
 }
 
+setInputAutoWidth($(".sub-box"));
+setInputAutoHeight($(".sub-box"));
+
 
 
 // 폰트 옵션 select에 해당 폰트 적용하기
@@ -150,7 +153,20 @@ $("#padding-left-input").change(function(e) { setCssVar("--sub-padding-left", $(
 $("#box-width-input").change(function(e) { setCssVar("--sub-box-width", $(this).val() + "px"); });
 $("#box-height-input").change(function(e) { setCssVar("--sub-box-height", $(this).val() + "px"); });
 $("#canvas-width-input").change(function(e) { setCssVar("--sub-canvas-width", $(this).val() + "px"); });
-$("#canvas-height-input").change(function(e) { setCssVar("--sub-canvas-height", $(this).val() + "px"); });
+$("#canvas-height-input").change(function(e) {
+	setCssVar("--sub-canvas-height", $(this).val() + "px");
+	refreshSubBox();
+});
+
+function refreshSubBox() {
+	if($("#canvas-height-input").val() === "auto") return;
+	
+	// 자막을 아래에 놓기
+	$(".canvas-container").css("height", $("#canvas-height-input").val() + "px");
+	$("#canvas").css("position", "absolute")
+				.css("bottom", "10%")
+				.css("left", "calc(" + ($(".canvas-container").width() / 2) + "px - "  + ($("#canvas").width() / 2) + "px)");
+}
 
 
 
@@ -165,17 +181,27 @@ $(".sub-box").keydown(function(e) {
 	} else {
 		$(this).css("height", getCssVar("--sub-box-height"));
 	}
+
+	refreshSubBox();
 });
 
 
 $("#save").click(function() {
-	html2canvas($(".sub-box"), {
-        onrendered: function(canvas) {
-          $("body").append($("<a id='temp'></a>"));
-          $("#temp").attr("href", canvas.toDataURL());
-          $("#temp").attr("download", "sub.png");
-          $("#temp")[0].click();
-          $("#temp").remove();
-        }
-      });
+	html2canvas($(".canvas-container"), {
+	    onrendered: function(canvas) {
+	      $("body").append($("<a id='temp'></a>"));
+	      $("#temp").attr("href", canvas.toDataURL());
+	      $("#temp").attr("download", "sub.png");
+	      $("#temp")[0].click();
+	      $("#temp").remove();
+	    }
+  	});
+});
+
+$(".single-duo-sub-radio").change(function() {
+	if($(this).val() === "1줄 자막") {
+		$("#sub-box2").css("display", "none");
+	} else if($(this).val() === "2줄 자막") {
+		$("#sub-box2").css("display", "block");
+	}
 });

@@ -93,9 +93,27 @@
 				<input class="pixel-input input-auto-width" id="canvas-height-input" value="auto">
 				<span>px</span>
 			</li>
+			<li>
+				<div>
+					<input type="radio" class="single-duo-sub-radio" name="single-duo-sub-raido" value="1줄 자막" checked="checked"><span>1줄 자막</span>
+					<input type="radio" class="single-duo-sub-radio" name="single-duo-sub-raido" value="2줄 자막"><span>2줄 자막</span>
+				</div>
+			</li>
+			<li>
+				<button id="save">저장</button>
+			</li>
+			<li>
+				<div>
+					<div id="canvas-border"></div>
+					<div class="canvas-container">
+						<div id="canvas">
+							<input type="text" class="sub-box" id="sub-box1" value="자막을 입력하세요.">
+							<input type="text" class="sub-box" id="sub-box2" value="자막을 입력하세요.">
+						</div>
+					</div>
+				</div>
+			</li>
 		</ul>
-		<input type="text" class="sub-box" value="자막을 입력하세요.">
-		<button id="save">저장</button>
 	</div>
 	<script type="text/javascript" src="script.js"></script>
 </body>
