@@ -13,24 +13,29 @@ addColorToSelect($("#box-color-select"));
 
 
 function setCssVar(key, value) {
-	$(":root")[0].style.setProperty(key, value);
+	document.documentElement.style.setProperty(key, value);
 }
 
 function getCssVar(key) {
-	return $(":root")[0].style.getPropertyValue(key);
+	return window.getComputedStyle(document.documentElement).getPropertyValue(key);
 }
 
 // .input-auto-width의 가로 길이를 글자에 맞게 자동 조정
 $(".input-auto-width").each(function() {
 	setInputAutoWidth(this);
 
-	$(this).keydown(function(e) {
-		setInputAutoWidth(this);
+	$(this).keypress(function(e) {
+		setInputAutoWidth(this, true);
+	});
+
+	$(this).keyup(function(e) {
+		setInputAutoWidth(this, true);
 	});
 });
 
-function setInputAutoWidth(input) {
+function setInputAutoWidth(input, test) {
 	var value = $(input).val();
+
 	$("body").append("<div id='virtual-input'>" + value + "</div>");
 	
 	var inputWidth = $("#virtual-input").width() + 20; // 여백 10px
@@ -39,18 +44,29 @@ function setInputAutoWidth(input) {
 	$("#virtual-input").remove();
 }
 
-function setInputAutoHeight(input) {
+function setSubInputAutoWidth(input) { // setInputAutoWidth와 차이점은 가상 input에도 폰트 등을 적용하는지 여부에 대한 차이
 	var value = $(input).val();
-	$("body").append("<div id='virtual-input'>" + value + "</div>");
-	
-	var inputHeight = $("#virtual-input").height() + 20; // 여백 10px
 
-	$(input).css("height", inputHeight);
-	$("#virtual-input").remove();
+	$("body").append("<div id='virtual-sub-input'>" + value + "</div>");
+	
+	var inputWidth = $("#virtual-sub-input").width() + 20; // 여백 10px
+
+	$(input).css("width", inputWidth);
+	$("#virtual-sub-input").remove();
 }
 
-setInputAutoWidth($(".sub-box"));
-setInputAutoHeight($(".sub-box"));
+function setSubInputAutoHeight(input) {
+	var value = $(input).val();
+	$("body").append("<div id='virtual-sub-input'>" + value + "</div>");
+	
+	var inputHeight = $("#virtual-sub-input").height() + 20; // 여백 10px
+
+	$(input).css("height", inputHeight);
+	$("#virtual-sub-input").remove();
+}
+
+setSubInputAutoWidth($(".sub-box"));
+setSubInputAutoHeight($(".sub-box"));
 
 
 
@@ -170,15 +186,15 @@ setCssVar("--sub-box-height", setPx($("#box-height-input").val()));
 // setCssVar("--sub-canvas-width", setPx($("#canvas-width-input").val()));
 // setCssVar("--sub-canvas-height", setPx($("#canvas-height-input").val()));
 // css 변경값 설정
-$("#font-size-input").keydown(function(e) { setCssVar("--sub-font-size", setPx($(this).val())); setInputAutoWidth($(".sub-box")); setInputAutoHeight($(".sub-box")); });
-$("#padding-top-input").change(function(e) { setCssVar("--sub-padding-top", setPx($(this).val()));  });
-$("#padding-right-input").change(function(e) { setCssVar("--sub-padding-right", setPx($(this).val())); });
-$("#padding-bottom-input").change(function(e) { setCssVar("--sub-padding-bottom", setPx($(this).val())); });
-$("#padding-left-input").change(function(e) { setCssVar("--sub-padding-left", setPx($(this).val())); });
-$("#box-width-input").change(function(e) { setCssVar("--sub-box-width", setPx($(this).val())); });
-$("#box-height-input").change(function(e) { setCssVar("--sub-box-height", setPx($(this).val())); });
-// $("#canvas-width-input").change(function(e) { setCssVar("--sub-canvas-width", setPx($(this).val())); });
-// $("#canvas-height-input").change(function(e) {
+$("#font-size-input").keyup(function(e) { setCssVar("--sub-font-size", setPx($(this).val())); setSubBoxWidthAndHeight($(".sub-box")); });
+$("#padding-top-input").keyup(function(e) { setCssVar("--sub-padding-top", setPx($(this).val())); });
+$("#padding-right-input").keyup(function(e) { setCssVar("--sub-padding-right", setPx($(this).val())); });
+$("#padding-bottom-input").keyup(function(e) { setCssVar("--sub-padding-bottom", setPx($(this).val())); });
+$("#padding-left-input").keyup(function(e) { setCssVar("--sub-padding-left", setPx($(this).val())); });
+$("#box-width-input").keyup(function(e) { setCssVar("--sub-box-width", setPx($(this).val())); });
+$("#box-height-input").keyup(function(e) { setCssVar("--sub-box-height", setPx($(this).val())); });
+// $("#canvas-width-input").keyup(function(e) { setCssVar("--sub-canvas-width", setPx($(this).val())); });
+// $("#canvas-height-input").keyup(function(e) {
 // 	setCssVar("--sub-canvas-height", setPx($(this).val()));
 // 	refreshSubBox();
 // });
@@ -203,20 +219,26 @@ function refreshSubBox() {
 
 
 
-$(".sub-box").keydown(function(e) {
+$(".sub-box").each(function() {
+	$(this).keydown(function() { setSubBoxWidthAndHeight(this); });
+});
+$(".sub-box").each(function() {
+	$(this).keyup(function() { setSubBoxWidthAndHeight(this); });
+});
+function setSubBoxWidthAndHeight(subBox) {
 	if($("#box-width-input").val() === "auto") {
-		setInputAutoWidth(this);
+		setSubInputAutoWidth($(subBox));
 	} else {
-		$(this).css("width", getCssVar("--sub-box-width"));
+		$($(".sub-box")).css("width", getCssVar("--sub-box-width"));
 	}
 	if($("#box-height-input").val() === "auto") {
-		setInputAutoHeight(this);
+		setSubInputAutoHeight($(subBox));
 	} else {
-		$(this).css("height", getCssVar("--sub-box-height"));
+		$($(subBox)).css("height", getCssVar("--sub-box-height"));
 	}
 
 	refreshSubBox();
-});
+}
 
 
 $("#save").click(function() {

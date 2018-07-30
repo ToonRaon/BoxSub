@@ -1,18 +1,18 @@
-:root {
-	--sub-font-size: 20px;
-	--sub-font-family: 'Nanum Gothic', sans-serif;
-	--sub-text-color: #FFFFFF;
-	--sub-background-color: #000000;
-	--sub-font-style: normal;
-	--sub-font-weight: normal;
-	--sub-padding-top: 5px;
-	--sub-padding-right: 20px;
-	--sub-padding-bottom: 5px;
-	--sub-padding-left: 20px;
-	--sub-box-width: auto;
-	--sub-box-height: auto;
-	--sub-canvs-width: auto;
-	--sub-canvs-height: auto;
+:root { /* 콜론 뒤에 띄어쓰기하면 setCssVar를 하지 않은 변수에 getCssVar로 접근하면 콜론 뒤 공백까지 인식함 */
+	--sub-font-size:20px;
+	--sub-font-family:'Nanum Gothic', sans-serif;
+	--sub-text-color:#FFFFFF;
+	--sub-background-color:#000000;
+	--sub-font-style:normal;
+	--sub-font-weight:normal;
+	--sub-padding-top:0px;
+	--sub-padding-right:20px;
+	--sub-padding-bottom:0px;
+	--sub-padding-left:20px;
+	--sub-box-width:auto;
+	--sub-box-height:auto;
+	--sub-canvas-width:auto;
+	--sub-canvas-height:auto;
 }
 
 body, input, textarea, button, select {
@@ -117,12 +117,19 @@ ul>li {
 
 #virtual-input {
 	display: inline-block;
+	font-family: var(--sub-font-family);
+	text-align: center;
+	width: var(--sub-box-width);
+}
+
+#virtual-sub-input {
+	display: inline-block;
 	font-size: var(--sub-font-size);
 	font-family: var(--sub-font-family);
 	font-style: var(--sub-font-style);
 	font-weight: var(--sub-font-weight);
 	color: var(--sub-text-color);
-	background-color: var(--sub-background-color);
+	background-color: red;
 	text-align: center;
 	width: var(--sub-box-width);
 	height: var(--sub-box-height);
