@@ -164,17 +164,6 @@ function changeInputArrowColor(select) {
 	}
 }
 
-$("#canvas-length-select").change(function() {
-	var value = $(this).val();
-	var width = value.split("X")[0];
-	var height = value.split("X")[1];
-
-	setCssVar("--sub-canvas-width", setPx(width));
-	setCssVar("--sub-canvas-height", setPx(height));
-
-	refreshSubBox();
-});
-
 // css 초기값 설정
 setCssVar("--sub-font-size", setPx($("#font-size-input").val()));
 setCssVar("--sub-padding-top", setPx($("#padding-top-input").val()));
@@ -193,6 +182,16 @@ $("#padding-bottom-input").keyup(function(e) { setCssVar("--sub-padding-bottom",
 $("#padding-left-input").keyup(function(e) { setCssVar("--sub-padding-left", setPx($(this).val())); });
 $("#box-width-input").keyup(function(e) { setCssVar("--sub-box-width", setPx($(this).val())); });
 $("#box-height-input").keyup(function(e) { setCssVar("--sub-box-height", setPx($(this).val())); });
+$("#canvas-length-select").change(function() {
+	var value = $(this).val();
+	var width = value.split("X")[0];
+	var height = value.split("X")[1];
+
+	setCssVar("--sub-canvas-width", setPx(width));
+	setCssVar("--sub-canvas-height", setPx(height));
+
+	refreshSubBox();
+});
 // $("#canvas-width-input").keyup(function(e) { setCssVar("--sub-canvas-width", setPx($(this).val())); });
 // $("#canvas-height-input").keyup(function(e) {
 // 	setCssVar("--sub-canvas-height", setPx($(this).val()));
